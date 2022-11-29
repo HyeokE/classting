@@ -76,7 +76,6 @@ const GlobalStyles = createGlobalStyle`
   footer, header, hgroup, menu, nav, section {
     display: block;
   }
-
   a {
     text-decoration: none;
   }
@@ -92,5 +91,6 @@ const GlobalStyles = createGlobalStyle`
   a:active {
     text-decoration: none;
   }
+  
 `;
 export default GlobalStyles;

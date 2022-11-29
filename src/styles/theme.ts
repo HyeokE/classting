@@ -1,11 +1,11 @@
 import type { DefaultTheme } from 'styled-components';
 
-import { assetColors } from './assetColors';
+import { assetColor } from './assetColor';
 import { fontSize } from './fontSize';
 import { windowSize } from './windowSize';
 
 export const theme: DefaultTheme = {
-  windowSize: windowSize,
-  fontSize: fontSize,
-  color: assetColors,
+  windowSizes: windowSize,
+  fontSizes: fontSize,
+  colors: assetColor,
 };

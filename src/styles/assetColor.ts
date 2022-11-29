@@ -51,4 +51,4 @@ export const primaryColor = {
   ...classting,
 };
 
-export const assetColors = { ...primaryColor };
+export const assetColor = { ...primaryColor };

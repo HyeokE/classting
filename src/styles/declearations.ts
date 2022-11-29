@@ -1,12 +1,12 @@
 import 'styled-components';
-import { assetColors } from './assetColors';
+import { assetColor } from './assetColor';
 import { fontSize } from './fontSize';
 import { windowSize } from './windowSize';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    windowSize: typeof windowSize;
-    fontSize: typeof fontSize;
-    color: typeof assetColors;
+    windowSizes: typeof windowSize;
+    fontSizes: typeof fontSize;
+    colors: typeof assetColor;
   }
 }
