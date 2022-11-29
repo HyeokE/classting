@@ -1,13 +1,9 @@
 import React from 'react';
 
-import Button from '../components/common/Button';
+import HomeLayout from '../components/home/HomeLayout';
 
 const Home = () => {
-  return (
-    <div>
-      <Button>퀴즈 풀기</Button>
-    </div>
-  );
+  return <HomeLayout />;
 };
 
 export default Home;

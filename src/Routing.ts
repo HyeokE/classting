@@ -20,4 +20,4 @@ export function useRouter() {
   }, [navigate]);
 }
 
-export type RoutePath = '/';
+export type RoutePath = '/' | '/quiz';

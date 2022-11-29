@@ -3,12 +3,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.classting900};
+  font-size: ${({ theme }) => theme.fontSizes.body1};
+  background: ${({ theme }) => theme.colors.classting900};
   color: ${({ theme }) => theme.colors.white};
+  font-weight: 600;
   border: 0;
   border-radius: 20px;
   padding: 10px 30px;
-  font-size: ${({ theme }) => theme.fontSizes.body1};
   cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.colors.classting700};
