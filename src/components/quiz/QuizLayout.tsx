@@ -48,7 +48,12 @@ const QuizLayout = ({
             setSelectedAnswer={selectAnswerHandler}
           />
           <QuizLayoutBottom>
-            <Button onClick={() => pageHandler()}>다음 문제</Button>
+            <Button
+              onClick={() => pageHandler()}
+              visible={Boolean(selectedAnswer)}
+            >
+              다음 문제
+            </Button>
           </QuizLayoutBottom>
         </QuizLayoutContainer>
       </ContainerInner>

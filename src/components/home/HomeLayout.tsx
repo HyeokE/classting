@@ -19,7 +19,7 @@ const HomeLayout = () => {
           <Title>클래스팅 프론트엔드 과제전형</Title>
           <Button
             onClick={() => {
-              push('/quiz');
+              push('/quiz/0');
               getQuizList();
             }}
           >

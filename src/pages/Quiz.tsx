@@ -1,4 +1,5 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
 
@@ -8,17 +9,14 @@ import { asyncGetQuizList } from '../store/quizDataAtom';
 import { addQuizLogAtom } from '../store/quizDataLogAtom';
 
 const Quiz = () => {
-  const [page, setPage] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>(
-    undefined,
-  );
   const [quizList] = useAtom(asyncGetQuizList);
-  const [, setLog] = useAtom(addQuizLogAtom);
+  const [log, setLog] = useAtom(addQuizLogAtom);
   const { push } = useRouter();
+  const { id } = useParams<{ id: string }>();
+  const page = Number(id!);
   const quiz = quizList ? quizList[page] : undefined;
 
   const selectAnswerHandler = (answer: string) => {
-    setSelectedAnswer(answer);
     quiz &&
       setLog({
         quiz: quiz,
@@ -29,15 +27,13 @@ const Quiz = () => {
     if (!quizList) {
       return;
     }
-    if (page < quizList.length - 1) {
-      setPage(page + 1);
-    } else {
+    if (page <= log.length - 1) {
+      push(`/quiz/${Number(page) + 1}`);
+    }
+    if (page === quizList.length - 1) {
       push('/result');
     }
   };
-  useEffect(() => {
-    setSelectedAnswer(undefined);
-  }, [page]);
 
   return (
     <Suspense fallback={<div> 퀴즈 불러오는 중...</div>}>
@@ -46,7 +42,7 @@ const Quiz = () => {
           quiz={quiz}
           page={page}
           pageHandler={pageHandler}
-          selectedAnswer={selectedAnswer}
+          selectedAnswer={log[page] ? log[page].selectedAnswer : undefined}
           selectAnswerHandler={selectAnswerHandler}
         />
       )}

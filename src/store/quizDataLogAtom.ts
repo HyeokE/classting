@@ -13,10 +13,10 @@ export const addQuizResultLogAtom = atom(null, (get, set, log: QuizLog[]) => {
   });
 });
 
-export const quizLogAtom = atom<QuizLog[]>([]);
+export const quizLogAtom = atomWithStorage<QuizLog[]>('quizLogAtom', []);
 
 export const addQuizLogAtom = atom(
-  null,
+  (get) => get(quizLogAtom),
   (
     get,
     set,

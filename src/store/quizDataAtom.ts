@@ -1,9 +1,13 @@
 import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
 import { getQuizList } from '../apis/getQuizList';
 import { Quiz } from '../types/quiz';
 
-export const quizListAtom = atom<Quiz[] | undefined>(undefined);
+export const quizListAtom = atomWithStorage<Quiz[] | undefined>(
+  'quizListAtom',
+  undefined,
+);
 
 export const asyncGetQuizList = atom(
   (get) => get(quizListAtom),
