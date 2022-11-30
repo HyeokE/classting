@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
@@ -6,14 +6,17 @@ import QuizChois, { ChoisType } from './QuizChois';
 
 interface QuizSectionProps {
   choisList: string[] | undefined;
-
   correct_answer: string;
+  selectedAnswer: string | undefined;
+  setSelectedAnswer: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-const QuizSection = ({ choisList, correct_answer }: QuizSectionProps) => {
-  const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>(
-    undefined,
-  );
+const QuizSection = ({
+  choisList,
+  correct_answer,
+  selectedAnswer,
+  setSelectedAnswer,
+}: QuizSectionProps) => {
   const checkAnswer = (
     selectedAnswer: string | undefined,
     answer: string,

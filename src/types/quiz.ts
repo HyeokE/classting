@@ -6,3 +6,7 @@ export type Quiz = {
   correct_answer: string;
   incorrect_answers: string[];
 };
+export interface QuizLog extends Quiz {
+  selectedAnswer: string;
+  date: Date;
+}
