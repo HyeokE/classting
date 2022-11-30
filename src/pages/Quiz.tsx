@@ -9,26 +9,31 @@ import { asyncGetQuizList } from '../store/quizDataAtom';
 import { addQuizLogAtom } from '../store/quizDataLogAtom';
 
 const Quiz = () => {
-  const [quizList] = useAtom(asyncGetQuizList);
-  const [log, setLog] = useAtom(addQuizLogAtom);
+  const [quiz] = useAtom(asyncGetQuizList);
+  const [{ quizLog }, setLog] = useAtom(addQuizLogAtom);
   const { push } = useRouter();
   const { id } = useParams<{ id: string }>();
   const page = Number(id!);
-  const quiz = quizList ? quizList[page] : undefined;
+  const question = quiz ? quiz[page] : undefined;
+  const selectedAnswer = quizLog[page]
+    ? quizLog[page].selectedAnswer
+    : undefined;
 
   const selectAnswerHandler = (answer: string) => {
-    quiz &&
+    question &&
       setLog({
-        quiz: quiz,
+        question: question,
         selectedAnswer: answer,
       });
   };
   const pageHandler = () => {
-    if (!quizList) {
+    if (!question) {
       return;
     }
-    if (page < log.length - 1) {
-      push(`/quiz/${Number(page) + 1}`);
+    if (page < 9) {
+      if (quizLog.length === page + 1) {
+        push(`/quiz/${Number(page) + 1}`);
+      }
     } else {
       push('/result');
     }
@@ -36,12 +41,12 @@ const Quiz = () => {
 
   return (
     <Suspense fallback={<div> 퀴즈 불러오는 중...</div>}>
-      {quizList && quiz && (
+      {question && quiz && (
         <QuizLayout
-          quiz={quiz}
+          question={question}
           page={page}
           pageHandler={pageHandler}
-          selectedAnswer={log[page] ? log[page].selectedAnswer : undefined}
+          selectedAnswer={selectedAnswer}
           selectAnswerHandler={selectAnswerHandler}
         />
       )}

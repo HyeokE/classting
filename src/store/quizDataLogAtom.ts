@@ -1,8 +1,9 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
-import { Quiz, QuizLog } from '../types/quiz';
+import { Question, QuizLog } from '../types/quiz';
 
+// 퀴즈 리스트 로그 데이터 저장
 export const quizResultLogAtom = atomWithStorage<QuizLog[][]>(
   'quizResultLog',
   [],
@@ -13,7 +14,16 @@ export const addQuizResultLogAtom = atom(null, (get, set, log: QuizLog[]) => {
   });
 });
 
-export const quizLogAtom = atomWithStorage<QuizLog[]>('quizLogAtom', []);
+// 퀴즈 로그 실시간 데이터 기록
+export const quizLogAtom = atomWithStorage<{
+  startDate: string | undefined;
+  endDate: string | undefined;
+  quizLog: QuizLog[];
+}>('quizLogAtom', {
+  startDate: undefined,
+  endDate: undefined,
+  quizLog: [],
+});
 
 export const addQuizLogAtom = atom(
   (get) => get(quizLogAtom),
@@ -21,23 +31,20 @@ export const addQuizLogAtom = atom(
     get,
     set,
     props: {
-      quiz: Quiz;
+      question: Question;
       selectedAnswer: string;
     },
   ) => {
-    const { quiz, selectedAnswer } = props;
+    const { question, selectedAnswer } = props;
     const log = get(quizLogAtom);
-    if (log.find((item) => item.question === quiz.question)) {
+    if (log.quizLog.find((item) => item.question === question.question)) {
       return;
     }
     set(quizLogAtom, (prev) => {
-      return [
+      return {
         ...prev,
-        {
-          ...quiz,
-          selectedAnswer: selectedAnswer,
-        },
-      ];
+        quizLog: [...prev.quizLog, { ...question, selectedAnswer }],
+      };
     });
   },
 );

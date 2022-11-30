@@ -2,9 +2,9 @@ import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 
 import { getQuizList } from '../apis/getQuizList';
-import { Quiz } from '../types/quiz';
+import { Question } from '../types/quiz';
 
-export const quizListAtom = atomWithStorage<Quiz[] | undefined>(
+export const quizListAtom = atomWithStorage<Question[] | undefined>(
   'quizListAtom',
   undefined,
 );

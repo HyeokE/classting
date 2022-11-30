@@ -1,6 +1,6 @@
-import { Quiz } from '../../types/quiz';
+import { Question } from '../../types/quiz';
 
-export const quizListMock: Quiz[] = [
+export const quizListMock: Question[] = [
   {
     category: 'General Knowledge',
     type: 'multiple',

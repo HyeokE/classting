@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { ContainerInner, LayoutContainer } from '../../styles/layouts';
-import { Quiz } from '../../types/quiz';
+import { Question } from '../../types/quiz';
 import { replaceEntity } from '../../utils/replaceEntity';
 import Button from '../common/Button';
 import { Title } from '../common/textStyle';
@@ -11,14 +11,14 @@ import { Title } from '../common/textStyle';
 import QuizSection from './QuizSection';
 
 type QuizLayoutProps = {
-  quiz: Quiz;
+  question: Question;
   page: number;
   pageHandler: () => void;
   selectedAnswer: string | undefined;
   selectAnswerHandler: (answer: string) => void;
 };
 const QuizLayout = ({
-  quiz,
+  question,
   page,
   pageHandler,
   selectedAnswer,
@@ -34,16 +34,16 @@ const QuizLayout = ({
     [],
   );
   useEffect(() => {
-    quiz && mixAnswers(quiz.incorrect_answers, quiz.correct_answer);
-  }, [quiz, page]);
+    question && mixAnswers(question.incorrect_answers, question.correct_answer);
+  }, [question, page]);
   return (
     <LayoutContainer>
       <ContainerInner>
         <QuizLayoutContainer>
-          <Title>{replaceEntity(quiz.question)}</Title>
+          <Title>{replaceEntity(question.question)}</Title>
           <QuizSection
             choisList={choisList}
-            correct_answer={quiz.correct_answer}
+            correct_answer={question.correct_answer}
             selectedAnswer={selectedAnswer}
             setSelectedAnswer={selectAnswerHandler}
           />
