@@ -8,7 +8,7 @@ interface QuizSectionProps {
   choisList: string[] | undefined;
   correct_answer: string;
   selectedAnswer: string | undefined;
-  setSelectedAnswer: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setSelectedAnswer: (answer: string) => void;
 }
 
 const QuizSection = ({

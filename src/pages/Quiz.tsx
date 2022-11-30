@@ -5,12 +5,26 @@ import { useAtom } from 'jotai';
 import QuizLayout from '../components/quiz/QuizLayout';
 import { useRouter } from '../Routing';
 import { asyncGetQuizList } from '../store/quizDataAtom';
+import { addQuizLogAtom } from '../store/quizDataLogAtom';
 
 const Quiz = () => {
-  const [quizList, setQuiz] = useAtom(asyncGetQuizList);
   const [page, setPage] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>(
+    undefined,
+  );
+  const [quizList] = useAtom(asyncGetQuizList);
+  const [, setLog] = useAtom(addQuizLogAtom);
   const { push } = useRouter();
+  const quiz = quizList ? quizList[page] : undefined;
 
+  const selectAnswerHandler = (answer: string) => {
+    setSelectedAnswer(answer);
+    quiz &&
+      setLog({
+        quiz: quiz,
+        selectedAnswer: answer,
+      });
+  };
   const pageHandler = () => {
     if (!quizList) {
       return;
@@ -22,12 +36,19 @@ const Quiz = () => {
     }
   };
   useEffect(() => {
-    setQuiz();
-  }, []);
+    setSelectedAnswer(undefined);
+  }, [page]);
+
   return (
-    <Suspense>
-      {quizList && (
-        <QuizLayout quizList={quizList} page={page} pageHandler={pageHandler} />
+    <Suspense fallback={<div> 퀴즈 불러오는 중...</div>}>
+      {quizList && quiz && (
+        <QuizLayout
+          quiz={quiz}
+          page={page}
+          pageHandler={pageHandler}
+          selectedAnswer={selectedAnswer}
+          selectAnswerHandler={selectAnswerHandler}
+        />
       )}
     </Suspense>
   );

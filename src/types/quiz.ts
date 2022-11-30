@@ -8,5 +8,4 @@ export type Quiz = {
 };
 export interface QuizLog extends Quiz {
   selectedAnswer: string;
-  date: Date;
 }

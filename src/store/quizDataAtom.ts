@@ -11,6 +11,5 @@ export const asyncGetQuizList = atom(
     const response = await getQuizList();
     const data = response.data.results;
     await set(quizListAtom, data);
-    console.log(data);
   },
 );

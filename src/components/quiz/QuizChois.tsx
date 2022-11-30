@@ -9,13 +9,13 @@ interface QuizChoisProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const QuizChois = ({ children, type, onClick, ...rest }: QuizChoisProps) => {
-  const isDisabled = type === 'disabled';
+  const isOnClickBlock = type !== 'unselected';
 
   return (
     <StyledChoisWrapper
       type={type}
       {...rest}
-      {...(isDisabled ? {} : { onClick })}
+      {...(isOnClickBlock ? {} : { onClick })}
     >
       {children}
     </StyledChoisWrapper>
