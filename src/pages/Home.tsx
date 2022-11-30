@@ -10,11 +10,11 @@ import { quizLogAtom } from '../store/quizDataLogAtom';
 const Home = () => {
   const { push } = useRouter();
   const [, getQuizList] = useAtom(asyncGetQuizList);
-  const [, setQuizLog] = useAtom(quizLogAtom);
+  const [, setStartQuizLog] = useAtom(quizLogAtom);
 
   const startQuizHandler = () => {
     getQuizList();
-    setQuizLog((prev) => {
+    setStartQuizLog((prev) => {
       return {
         ...prev,
         startDate: new Date(),
