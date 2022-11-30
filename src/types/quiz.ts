@@ -9,3 +9,9 @@ export type Question = {
 export interface QuizLog extends Question {
   selectedAnswer: string;
 }
+export interface QuizLogWithDate {
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+  quizLog: QuizLog[];
+}
+export type QuizLogList = QuizLogWithDate[];

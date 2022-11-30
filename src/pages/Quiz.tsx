@@ -6,11 +6,12 @@ import { useAtom } from 'jotai';
 import QuizLayout from '../components/quiz/QuizLayout';
 import { useRouter } from '../Routing';
 import { asyncGetQuizList } from '../store/quizDataAtom';
-import { addQuizLogAtom } from '../store/quizDataLogAtom';
+import { addQuizLogAtom, addQuizResultLogAtom } from '../store/quizDataLogAtom';
 
 const Quiz = () => {
   const [quiz] = useAtom(asyncGetQuizList);
   const [{ quizLog }, setLog] = useAtom(addQuizLogAtom);
+  const [, addQuizLog] = useAtom(addQuizResultLogAtom);
   const { push } = useRouter();
   const { id } = useParams<{ id: string }>();
   const page = Number(id!);
@@ -36,6 +37,7 @@ const Quiz = () => {
       }
     } else {
       push('/result');
+      addQuizLog();
     }
   };
 
