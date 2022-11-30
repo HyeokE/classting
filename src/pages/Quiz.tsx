@@ -27,10 +27,9 @@ const Quiz = () => {
     if (!quizList) {
       return;
     }
-    if (page <= log.length - 1) {
+    if (page < log.length - 1) {
       push(`/quiz/${Number(page) + 1}`);
-    }
-    if (page === quizList.length - 1) {
+    } else {
       push('/result');
     }
   };
