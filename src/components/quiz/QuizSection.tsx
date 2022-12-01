@@ -63,6 +63,7 @@ const StyledChoisWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 6px;
+  box-sizing: border-box;
 `;
 
 export default QuizSection;

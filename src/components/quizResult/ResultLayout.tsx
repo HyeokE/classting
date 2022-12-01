@@ -3,9 +3,10 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import { QuizLogWithDate } from '../../types/quiz';
+import { timeTakenCalculator } from '../../utils/timeTakenCalculator';
 import Button from '../common/Button';
 import DoughnutChart from '../common/DoughnutChart';
-import { SubTitle, Title } from '../common/textStyle';
+import { Paragraph, Title } from '../common/textStyle';
 
 type ResultLayoutProps = {
   quizLog: QuizLogWithDate;
@@ -22,8 +23,12 @@ const ResultLayout = ({ quizLog, goHomeHandler }: ResultLayoutProps) => {
   const correctAnswerCount = getCorrectAnswer(quizLog);
   const incorrectAnswerCount = quizLog.quizLog.length - correctAnswerCount;
 
+  const { hours, minutes, seconds } = timeTakenCalculator(
+    quizLog.startDate!,
+    quizLog.endDate!,
+  );
+
   const data = {
-    labels: ['정답', '오답'],
     datasets: [
       {
         data: [correctAnswerCount, incorrectAnswerCount],
@@ -34,19 +39,48 @@ const ResultLayout = ({ quizLog, goHomeHandler }: ResultLayoutProps) => {
     ],
   };
   return (
-    <ResultLayoutContainer>
-      <Title>퀴즈 결과</Title>
-      <SubTitle>정답: {correctAnswerCount}</SubTitle>
-      <SubTitle>오답: {incorrectAnswerCount}</SubTitle>
-      <DoughnutChart data={data} width={300} height={300} />
-      <Button onClick={goHomeHandler}>홈으로 가기</Button>
-    </ResultLayoutContainer>
+    <>
+      {quizLog.startDate && quizLog.endDate && (
+        <ResultLayoutContainer>
+          <HeaderWrapper>
+            <Title>퀴즈 결과</Title>
+            <Paragraph>맞춘 문제 {correctAnswerCount}</Paragraph>
+            <Paragraph>틀린 문제 {incorrectAnswerCount}</Paragraph>
+            <Paragraph>
+              {hours > 0 && `${hours}시간 `}
+              {minutes > 0 && `${minutes}분 `}
+              {seconds > 0 && `${seconds}초 `} 걸렸어요!
+            </Paragraph>
+          </HeaderWrapper>
+          <DoughnutChart data={data} width={300} height={300} />
+          <BottomWrapper>
+            <Button>오답노트 하기</Button>
+            <Button onClick={goHomeHandler}>홈으로 가기</Button>
+          </BottomWrapper>
+        </ResultLayoutContainer>
+      )}
+    </>
   );
 };
 const ResultLayoutContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 30px;
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+`;
+const BottomWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-direction: row;
 `;
 export default ResultLayout;
