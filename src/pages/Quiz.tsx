@@ -54,12 +54,12 @@ const SuspenseQuiz = () => {
     if (!question) {
       return;
     }
-
     if (page < 9) {
       if (quizLog.length >= page) {
         push(`/quiz/${Number(page) + 1}`);
       }
-    } else {
+    }
+    if (quiz.length - 1 <= page) {
       endQuizHandler();
     }
   }, [page]);

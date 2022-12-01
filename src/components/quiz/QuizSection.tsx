@@ -2,6 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import { replaceEntity } from '../../utils/replaceEntity';
+
 import QuizChois, { ChoisType } from './QuizChois';
 
 interface QuizSectionProps {
@@ -49,7 +51,7 @@ const QuizSection = ({
             type={checkAnswer(selectedAnswer, answer)}
             onClick={() => setSelectedAnswer(answer)}
           >
-            {answer}
+            {replaceEntity(answer)}
           </QuizChois>
         ))}
     </StyledChoisWrapper>
