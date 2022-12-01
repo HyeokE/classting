@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
@@ -15,7 +15,7 @@ import { ContainerInner, LayoutContainer } from '../styles/layouts';
 const Quiz = () => {
   return (
     <LayoutContainer>
-      <Suspense fallback={<div>퀴즈 불러오는 중...</div>}>
+      <Suspense fallback={<div>퀴즈 불러오는 중</div>}>
         <ContainerInner>
           <SuspenseQuiz />
         </ContainerInner>
@@ -25,14 +25,16 @@ const Quiz = () => {
 };
 
 const SuspenseQuiz = () => {
-  const [quiz] = useAtom(asyncGetQuizAtom);
+  const [quiz, getQuiz] = useAtom(asyncGetQuizAtom);
   const [{ quizLog }, setLog] = useAtom(addQuizLogAtom);
   const [, addEndDateAndQuiz] = useAtom(addEndDateAndQuizLogAtom);
+
   const { push } = useRouter();
   const { id } = useParams<{ id: string }>();
-  const page = Number(id!);
 
-  const question = quiz ? quiz[page] : undefined;
+  const page = Number(id!);
+  const question = quiz[page];
+
   const selectedAnswer = quizLog[page]
     ? quizLog[page].selectedAnswer
     : undefined;
@@ -48,21 +50,23 @@ const SuspenseQuiz = () => {
     addEndDateAndQuiz();
     push('/result');
   };
-  const pageHandler = () => {
+  const pageHandler = useCallback(() => {
     if (!question) {
       return;
     }
+
     if (page < 9) {
-      if (quizLog.length === page + 1) {
+      if (quizLog.length >= page) {
         push(`/quiz/${Number(page) + 1}`);
       }
     } else {
       endQuizHandler();
     }
-  };
+  }, [page]);
+
   return (
     <>
-      {question && quiz && (
+      {question && (
         <QuizLayout
           question={question}
           page={page}

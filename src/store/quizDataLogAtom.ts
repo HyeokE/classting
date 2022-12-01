@@ -28,7 +28,8 @@ export const quizResultsLogAtom = atomWithStorage<QuizLogList>(
 export const addEndDateAndQuizLogAtom = atom(null, (get, set) => {
   const currentLog = get(quizLogAtom);
   const resultsLog = get(quizResultsLogAtom);
-  if (resultsLog.length === 0) {
+
+  if (resultsLog === null || resultsLog.length === 0) {
     set(quizResultsLogAtom, [{ ...currentLog, endDate: new Date() }]);
   } else {
     set(quizResultsLogAtom, (prev) => {

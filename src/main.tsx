@@ -2,14 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Provider } from 'jotai';
-
 import App from './App';
+import { AtomDevtools } from './store/JotaiDevTool';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Provider>
+      <AtomDevtools>
         <div
           style={{
             display: 'flex',
@@ -20,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         >
           <App />
         </div>
-      </Provider>
+      </AtomDevtools>
     </BrowserRouter>
   </React.StrictMode>,
 );
