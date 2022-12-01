@@ -3,12 +3,15 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import { QuizLogWithDate } from '../../types/quiz';
+import Button from '../common/Button';
 import DoughnutChart from '../common/DoughnutChart';
+import { SubTitle, Title } from '../common/textStyle';
 
 type ResultLayoutProps = {
   quizLog: QuizLogWithDate;
+  goHomeHandler: () => void;
 };
-const ResultLayout = ({ quizLog }: ResultLayoutProps) => {
+const ResultLayout = ({ quizLog, goHomeHandler }: ResultLayoutProps) => {
   const theme = useTheme();
   const getCorrectAnswer = (quizLog: QuizLogWithDate) => {
     const correctAnswer = quizLog.quizLog.filter(
@@ -32,7 +35,11 @@ const ResultLayout = ({ quizLog }: ResultLayoutProps) => {
   };
   return (
     <ResultLayoutContainer>
+      <Title>퀴즈 결과</Title>
+      <SubTitle>정답: {correctAnswerCount}</SubTitle>
+      <SubTitle>오답: {incorrectAnswerCount}</SubTitle>
       <DoughnutChart data={data} width={300} height={300} />
+      <Button onClick={goHomeHandler}>홈으로 가기</Button>
     </ResultLayoutContainer>
   );
 };

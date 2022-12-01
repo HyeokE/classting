@@ -5,16 +5,33 @@ import { useAtom } from 'jotai';
 
 import QuizLayout from '../components/quiz/QuizLayout';
 import { useRouter } from '../Routing';
-import { asyncGetQuizList } from '../store/quizDataAtom';
-import { addQuizLogAtom, addQuizResultLogAtom } from '../store/quizDataLogAtom';
+import { asyncGetQuizAtom } from '../store/quizDataAtom';
+import {
+  addEndDateAndQuizLogAtom,
+  addQuizLogAtom,
+} from '../store/quizDataLogAtom';
+import { ContainerInner, LayoutContainer } from '../styles/layouts';
 
 const Quiz = () => {
-  const [quiz] = useAtom(asyncGetQuizList);
+  return (
+    <LayoutContainer>
+      <Suspense fallback={<div>퀴즈 불러오는 중...</div>}>
+        <ContainerInner>
+          <SuspenseQuiz />
+        </ContainerInner>
+      </Suspense>
+    </LayoutContainer>
+  );
+};
+
+const SuspenseQuiz = () => {
+  const [quiz] = useAtom(asyncGetQuizAtom);
   const [{ quizLog }, setLog] = useAtom(addQuizLogAtom);
-  const [, addEndTimeQuizLog] = useAtom(addQuizResultLogAtom);
+  const [, addEndDateAndQuiz] = useAtom(addEndDateAndQuizLogAtom);
   const { push } = useRouter();
   const { id } = useParams<{ id: string }>();
   const page = Number(id!);
+
   const question = quiz ? quiz[page] : undefined;
   const selectedAnswer = quizLog[page]
     ? quizLog[page].selectedAnswer
@@ -27,6 +44,10 @@ const Quiz = () => {
         selectedAnswer: answer,
       });
   };
+  const endQuizHandler = () => {
+    addEndDateAndQuiz();
+    push('/result');
+  };
   const pageHandler = () => {
     if (!question) {
       return;
@@ -36,13 +57,11 @@ const Quiz = () => {
         push(`/quiz/${Number(page) + 1}`);
       }
     } else {
-      push('/result');
-      addEndTimeQuizLog();
+      endQuizHandler();
     }
   };
-
   return (
-    <Suspense fallback={<div> 퀴즈 불러오는 중...</div>}>
+    <>
       {question && quiz && (
         <QuizLayout
           question={question}
@@ -52,7 +71,7 @@ const Quiz = () => {
           selectAnswerHandler={selectAnswerHandler}
         />
       )}
-    </Suspense>
+    </>
   );
 };
 
