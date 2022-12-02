@@ -1,9 +1,10 @@
-import React, { Suspense, useCallback, useEffect } from 'react';
+import React, { Suspense, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
 
 import QuizLayout from '../components/quiz/QuizLayout';
+import QuizLoading from '../components/quiz/QuizLoading';
 import { useRouter } from '../Routing';
 import { asyncGetQuizAtom } from '../store/quizDataAtom';
 import {
@@ -11,12 +12,11 @@ import {
   addQuizLogAtom,
 } from '../store/quizDataLogAtom';
 import { ContainerInner, LayoutContainer } from '../styles/layouts';
-import { reloadBlock } from '../utils/blockReload';
 
 const Quiz = () => {
   return (
     <LayoutContainer>
-      <Suspense fallback={<div>퀴즈 불러오는 중</div>}>
+      <Suspense fallback={<QuizLoading />}>
         <ContainerInner>
           <SuspenseQuiz />
         </ContainerInner>
@@ -64,15 +64,6 @@ const SuspenseQuiz = () => {
       endQuizHandler();
     }
   }, [page, quizLog]);
-
-  useEffect(() => {
-    (() => {
-      window.addEventListener('beforeunload', reloadBlock);
-    })();
-    return () => {
-      document.removeEventListener('beforeunload', reloadBlock);
-    };
-  }, []);
 
   return (
     <>

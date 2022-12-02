@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Question } from '../../types/quiz';
 import { replaceEntity } from '../../utils/replaceEntity';
 import Button from '../common/Button';
-import { Title } from '../common/textStyle';
+import { SubTitle } from '../common/textStyle';
 
 import QuizSection from './QuizSection';
 
@@ -37,7 +37,7 @@ const QuizLayout = ({
   }, [question, page]);
   return (
     <QuizLayoutContainer>
-      <Title>{replaceEntity(question.question)}</Title>
+      <SubTitle>{replaceEntity(question.question)}</SubTitle>
       <QuizSection
         choisList={choisList}
         correct_answer={question.correct_answer}
