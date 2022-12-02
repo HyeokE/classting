@@ -29,11 +29,14 @@ export const addEndDateAndQuizLogAtom = atom(null, (get, set) => {
   const currentLog = get(quizLogAtom);
   const resultsLog = get(quizResultsLogAtom);
 
+  const result = { ...currentLog, endDate: new Date() };
+
+  set(quizLogAtom, { ...result });
   if (resultsLog === null || resultsLog.length === 0) {
-    set(quizResultsLogAtom, [{ ...currentLog, endDate: new Date() }]);
+    set(quizResultsLogAtom, [result]);
   } else {
     set(quizResultsLogAtom, (prev) => {
-      return [...prev, { ...currentLog, endDate: new Date() }];
+      return [...prev, result];
     });
   }
 });

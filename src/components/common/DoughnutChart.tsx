@@ -14,6 +14,9 @@ const DoughnutChart = ({ ...rest }: DoughnutChartProps) => {
   return (
     <Doughnut
       {...rest}
+      style={{
+        paddingBottom: '10px',
+      }}
       options={{
         responsive: false,
       }}

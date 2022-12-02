@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback } from 'react';
+import React, { Suspense, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
@@ -11,6 +11,7 @@ import {
   addQuizLogAtom,
 } from '../store/quizDataLogAtom';
 import { ContainerInner, LayoutContainer } from '../styles/layouts';
+import { reloadBlock } from '../utils/blockReload';
 
 const Quiz = () => {
   return (
@@ -28,7 +29,6 @@ const SuspenseQuiz = () => {
   const [quiz, getQuiz] = useAtom(asyncGetQuizAtom);
   const [{ quizLog }, setLog] = useAtom(addQuizLogAtom);
   const [, addEndDateAndQuiz] = useAtom(addEndDateAndQuizLogAtom);
-
   const { push } = useRouter();
   const { id } = useParams<{ id: string }>();
 
@@ -54,10 +54,8 @@ const SuspenseQuiz = () => {
     if (!question) {
       return;
     }
+
     if (page < quiz.length - 1) {
-      if (quizLog.length >= page) {
-        return;
-      }
       if (Number(page) + 1 <= quizLog.length) {
         push(`/quiz/${Number(page) + 1}`);
       }
@@ -66,6 +64,15 @@ const SuspenseQuiz = () => {
       endQuizHandler();
     }
   }, [page, quizLog]);
+
+  useEffect(() => {
+    (() => {
+      window.addEventListener('beforeunload', reloadBlock);
+    })();
+    return () => {
+      document.removeEventListener('beforeunload', reloadBlock);
+    };
+  }, []);
 
   return (
     <>
