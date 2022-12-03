@@ -7,21 +7,6 @@ import { Question, QuizLogList, QuizLogWithDate } from '../types/quiz';
 export const quizResultsLogAtom = atomWithStorage<QuizLogList>(
   'quizResultsLogAtom',
   [],
-  {
-    getItem: (key) => {
-      const item = localStorage.getItem(key);
-      if (item === null) {
-        return null;
-      }
-      return JSON.parse(item);
-    },
-    setItem: (key, newValue) => {
-      localStorage.setItem(key, JSON.stringify(newValue));
-    },
-    removeItem: (key) => {
-      localStorage.removeItem(key);
-    },
-  },
 );
 
 // 퀴즈 로그 저장
@@ -29,7 +14,7 @@ export const addEndDateAndQuizLogAtom = atom(null, (get, set) => {
   const currentLog = get(quizLogAtom);
   const resultsLog = get(quizResultsLogAtom);
 
-  const result = { ...currentLog, endDate: new Date() };
+  const result = { ...currentLog, endDate: new Date().toISOString() };
 
   set(quizLogAtom, { ...result });
   if (resultsLog === null || resultsLog.length === 0) {

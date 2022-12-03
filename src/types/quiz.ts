@@ -10,8 +10,8 @@ export interface QuizLog extends Question {
   selectedAnswer: string;
 }
 export interface QuizLogWithDate {
-  startDate: Date | undefined;
-  endDate: Date | undefined;
+  startDate: string | undefined;
+  endDate: string | undefined;
   quizLog: QuizLog[];
 }
 export type QuizLogList = QuizLogWithDate[];

@@ -14,19 +14,24 @@ const Result = () => {
 
   const { push } = useRouter();
 
-  // const quizLogs = JSON.parse(localStorage.getItem('quizResultsLogAtom')!);
-  // const quizLog = quizLogs.pop();
-
   const goHomeHandler = () => {
     resetQuizLog();
     push('/');
+  };
+  const goReviewHandler = () => {
+    resetQuizLog();
+    push('/review');
   };
 
   return (
     <LayoutContainer>
       <ContainerInner>
         {quizLog && (
-          <ResultLayout quizLog={quizLog} goHomeHandler={goHomeHandler} />
+          <ResultLayout
+            quizLog={quizLog}
+            goHomeHandler={goHomeHandler}
+            goReviewHandler={goReviewHandler}
+          />
         )}
       </ContainerInner>
     </LayoutContainer>

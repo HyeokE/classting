@@ -15,7 +15,7 @@ const Home = () => {
     setStartQuizLog((prev) => {
       return {
         ...prev,
-        startDate: new Date(),
+        startDate: new Date().toISOString(),
       };
     });
     push('/quiz/0');

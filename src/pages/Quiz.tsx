@@ -26,7 +26,7 @@ const Quiz = () => {
 };
 
 const SuspenseQuiz = () => {
-  const [quiz, getQuiz] = useAtom(asyncGetQuizAtom);
+  const [quiz] = useAtom(asyncGetQuizAtom);
   const [{ quizLog }, setLog] = useAtom(addQuizLogAtom);
   const [, addEndDateAndQuiz] = useAtom(addEndDateAndQuizLogAtom);
   const { push } = useRouter();
