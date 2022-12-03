@@ -12,9 +12,14 @@ import QuizReviewCard from './QuizReviewCard';
 type ReviewLayoutProps = {
   quizLogs: QuizLogWithDate[] | undefined;
   goHomeHandler: () => void;
+  goReviewDetailHandler: (id: number) => void;
 };
 
-const ReviewLayout = ({ quizLogs, goHomeHandler }: ReviewLayoutProps) => {
+const ReviewLayout = ({
+  quizLogs,
+  goHomeHandler,
+  goReviewDetailHandler,
+}: ReviewLayoutProps) => {
   return (
     <ReviewLayoutContainer>
       <ReviewLayoutHeader>
@@ -24,8 +29,14 @@ const ReviewLayout = ({ quizLogs, goHomeHandler }: ReviewLayoutProps) => {
       </ReviewLayoutHeader>
       {quizLogs ? (
         <ReviewCardSection>
-          {quizLogs.map((quiz) => (
-            <QuizReviewCard key={quiz.startDate} quiz={quiz} />
+          {quizLogs.map((quizLog, index) => (
+            <QuizReviewCard
+              key={quizLog.startDate}
+              quizLog={quizLog}
+              onClick={() => {
+                goReviewDetailHandler(index);
+              }}
+            />
           ))}
         </ReviewCardSection>
       ) : (

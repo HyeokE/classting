@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 
 import styled from 'styled-components';
 
@@ -7,23 +7,23 @@ import { correctAnswerCounter } from '../../utils/correctAnswerCounter';
 import { dateFilter } from '../../utils/dateFilter';
 import { Paragraph } from '../common/textStyle';
 
-type ReviewCardProps = {
-  quiz: QuizLogWithDate;
-};
+interface ReviewCardProps extends HTMLAttributes<HTMLDivElement> {
+  quizLog: QuizLogWithDate;
+}
 
-const QuizReviewCard = ({ quiz }: ReviewCardProps) => {
-  const correctAnswerCount = correctAnswerCounter(quiz);
-  const quizCount = quiz.quizLog.length;
+const QuizReviewCard = ({ quizLog, ...rest }: ReviewCardProps) => {
+  const correctAnswerCount = correctAnswerCounter(quizLog);
+  const quizCount = quizLog.quizLog.length;
   return (
-    <ReviewCardContainer>
+    <ReviewCardContainer {...rest}>
       <ReviewCardHeader>
-        {quiz.startDate &&
-          dateFilter(quiz.startDate, 'YYYY. MM. DD - HH시 mm분')}
+        {quizLog.startDate &&
+          dateFilter(quizLog.startDate, 'YYYY. MM. DD - HH시 mm분')}
         에 진행한 퀴즈
       </ReviewCardHeader>
       <ReviewCardBody>
         <Paragraph>
-          {quizCount}/{correctAnswerCount}
+          {correctAnswerCount}/{quizCount}
         </Paragraph>
       </ReviewCardBody>
     </ReviewCardContainer>

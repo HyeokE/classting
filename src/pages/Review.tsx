@@ -10,11 +10,18 @@ const Review = () => {
   const goHomeHandler = () => {
     push('/');
   };
+  const goReviewDetailHandler = (id: number) => {
+    push(`/review/${id}`);
+  };
 
   return (
     <LayoutContainer>
       <ContainerInner>
-        <ReviewLayout quizLogs={quizLogs} goHomeHandler={goHomeHandler} />
+        <ReviewLayout
+          quizLogs={quizLogs}
+          goHomeHandler={goHomeHandler}
+          goReviewDetailHandler={goReviewDetailHandler}
+        />
       </ContainerInner>
     </LayoutContainer>
   );

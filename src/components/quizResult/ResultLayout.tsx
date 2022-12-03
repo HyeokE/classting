@@ -4,7 +4,7 @@ import styled, { useTheme } from 'styled-components';
 
 import { QuizLogWithDate } from '../../types/quiz';
 import { correctAnswerCounter } from '../../utils/correctAnswerCounter';
-import { timeTakenCalculator } from '../../utils/timeTakenCalculator';
+import { timeDurationCalculator } from '../../utils/timeDurationCalculator';
 import Button from '../common/Button';
 import DoughnutChart from '../common/DoughnutChart';
 import { Paragraph, Title } from '../common/textStyle';
@@ -24,7 +24,7 @@ const ResultLayout = ({
   const correctAnswerCount = correctAnswerCounter(quizLog);
   const incorrectAnswerCount = quizLog.quizLog.length - correctAnswerCount;
 
-  const { hours, minutes, seconds } = timeTakenCalculator(
+  const { hours, minutes, seconds } = timeDurationCalculator(
     quizLog.startDate!,
     quizLog.endDate!,
   );
