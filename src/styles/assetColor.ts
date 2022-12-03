@@ -42,6 +42,11 @@ export const classting = {
   classting800: 'rgb(0, 200, 150, 0.8)',
   classting700: 'rgb(0, 200, 150, 0.7)',
   classting600: 'rgb(0, 200, 150, 0.6)',
+  classting500: 'rgb(0, 200, 150, 0.5)',
+  classting400: 'rgb(0, 200, 150, 0.4)',
+  classting300: 'rgb(0, 200, 150, 0.3)',
+  classting200: 'rgb(0, 200, 150, 0.2)',
+  classting100: 'rgb(0, 200, 150, 0.1)',
 };
 export const primaryColor = {
   ...assetGrey,

@@ -16,6 +16,7 @@ export const LayoutContainer = styled.div`
 export const ContainerInner = styled.div`
   display: flex;
   flex-direction: column;
+  width: 600px;
   margin: 0 auto;
   padding: 40px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,

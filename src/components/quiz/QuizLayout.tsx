@@ -2,11 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { ContainerInner, LayoutContainer } from '../../styles/layouts';
 import { Question } from '../../types/quiz';
 import { replaceEntity } from '../../utils/replaceEntity';
 import Button from '../common/Button';
-import { Title } from '../common/textStyle';
+import { SubTitle } from '../common/textStyle';
 
 import QuizSection from './QuizSection';
 
@@ -37,27 +36,20 @@ const QuizLayout = ({
     question && mixAnswers(question.incorrect_answers, question.correct_answer);
   }, [question, page]);
   return (
-    <LayoutContainer>
-      <ContainerInner>
-        <QuizLayoutContainer>
-          <Title>{replaceEntity(question.question)}</Title>
-          <QuizSection
-            choisList={choisList}
-            correct_answer={question.correct_answer}
-            selectedAnswer={selectedAnswer}
-            setSelectedAnswer={selectAnswerHandler}
-          />
-          <QuizLayoutBottom>
-            <Button
-              onClick={() => pageHandler()}
-              visible={Boolean(selectedAnswer)}
-            >
-              다음 문제
-            </Button>
-          </QuizLayoutBottom>
-        </QuizLayoutContainer>
-      </ContainerInner>
-    </LayoutContainer>
+    <QuizLayoutContainer>
+      <SubTitle>{replaceEntity(question.question)}</SubTitle>
+      <QuizSection
+        choisList={choisList}
+        correct_answer={question.correct_answer}
+        selectedAnswer={selectedAnswer}
+        setSelectedAnswer={selectAnswerHandler}
+      />
+      <QuizLayoutBottom>
+        <Button onClick={() => pageHandler()} visible={Boolean(selectedAnswer)}>
+          다음 문제
+        </Button>
+      </QuizLayoutBottom>
+    </QuizLayoutContainer>
   );
 };
 
