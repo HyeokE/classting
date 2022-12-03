@@ -15,4 +15,5 @@ export const Paragraph = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.body1};
   color: ${({ theme }) => theme.colors.grey800};
   font-weight: 500;
+  word-break: break-all;
 `;

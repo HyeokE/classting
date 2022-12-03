@@ -20,10 +20,16 @@ const Home = () => {
     });
     push('/quiz/0');
   };
+  const goReviewHandler = () => {
+    push('/review');
+  };
   return (
     <LayoutContainer>
       <ContainerInner>
-        <HomeLayout startQuizHandler={startQuizHandler} />
+        <HomeLayout
+          startQuizHandler={startQuizHandler}
+          goReviewHandler={goReviewHandler}
+        />
       </ContainerInner>
     </LayoutContainer>
   );
