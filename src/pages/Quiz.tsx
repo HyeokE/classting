@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
 
+import Notice from '../components/common/Notice';
 import QuizLayout from '../components/quiz/QuizLayout';
-import QuizLoading from '../components/quiz/QuizLoading';
 import { useRouter } from '../Routing';
 import { asyncGetQuizAtom } from '../store/quizDataAtom';
 import {
@@ -16,7 +16,7 @@ import { ContainerInner, LayoutContainer } from '../styles/layouts';
 const Quiz = () => {
   return (
     <LayoutContainer>
-      <Suspense fallback={<QuizLoading />}>
+      <Suspense fallback={<Notice>퀴즈를 불러오는 중이에요</Notice>}>
         <ContainerInner>
           <SuspenseQuiz />
         </ContainerInner>

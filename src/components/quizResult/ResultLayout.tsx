@@ -3,6 +3,7 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import { QuizLogWithDate } from '../../types/quiz';
+import { correctAnswerCounter } from '../../utils/correctAnswerCounter';
 import { timeTakenCalculator } from '../../utils/timeTakenCalculator';
 import Button from '../common/Button';
 import DoughnutChart from '../common/DoughnutChart';
@@ -19,13 +20,8 @@ const ResultLayout = ({
   goReviewHandler,
 }: ResultLayoutProps) => {
   const theme = useTheme();
-  const getCorrectAnswer = (quizLog: QuizLogWithDate) => {
-    const correctAnswer = quizLog.quizLog.filter(
-      (quiz) => quiz.correct_answer === quiz.selectedAnswer,
-    );
-    return correctAnswer.length;
-  };
-  const correctAnswerCount = getCorrectAnswer(quizLog);
+
+  const correctAnswerCount = correctAnswerCounter(quizLog);
   const incorrectAnswerCount = quizLog.quizLog.length - correctAnswerCount;
 
   const { hours, minutes, seconds } = timeTakenCalculator(

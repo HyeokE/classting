@@ -13,6 +13,6 @@ export const SubTitle = styled.h2`
 `;
 export const Paragraph = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.body1};
-  color: ${({ theme }) => theme.colors.grey700};
-  font-weight: 600;
+  color: ${({ theme }) => theme.colors.grey800};
+  font-weight: 500;
 `;
