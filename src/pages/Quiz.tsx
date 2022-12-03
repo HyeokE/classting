@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback } from 'react';
+import React, { Suspense, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
@@ -64,6 +64,12 @@ const SuspenseQuiz = () => {
       endQuizHandler();
     }
   }, [page, quizLog]);
+
+  useEffect(() => {
+    if (Number(page) + 1 > quizLog.length) {
+      push(`/quiz/${quizLog.length}`);
+    }
+  }, []);
 
   return (
     <>

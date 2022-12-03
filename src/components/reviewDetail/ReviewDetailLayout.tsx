@@ -5,14 +5,21 @@ import styled from 'styled-components';
 import { QuizLogWithDate } from '../../types/quiz';
 import { dateFilter } from '../../utils/dateFilter';
 import { timeDurationCalculator } from '../../utils/timeDurationCalculator';
+import Button from '../common/Button';
 import { Paragraph, Title } from '../common/textStyle';
 
 import ReviewDetailCard from './ReviewDetailCard';
 
 type ReviewDetailLayoutProps = {
   quizLog: QuizLogWithDate;
+  goHomeHandler: () => void;
+  goReviewHandler: () => void;
 };
-const ReviewDetailLayout = ({ quizLog }: ReviewDetailLayoutProps) => {
+const ReviewDetailLayout = ({
+  quizLog,
+  goReviewHandler,
+  goHomeHandler,
+}: ReviewDetailLayoutProps) => {
   const { hours, minutes, seconds } = timeDurationCalculator(
     quizLog.startDate!,
     quizLog.endDate!,
@@ -44,6 +51,10 @@ const ReviewDetailLayout = ({ quizLog }: ReviewDetailLayoutProps) => {
           <ReviewDetailCard quizLog={quiz} key={quiz.correct_answer} />
         ))}
       </ReviewLayoutBody>
+      <ReviewLayoutFooter>
+        <Button onClick={goReviewHandler}>목록으로 가기</Button>
+        <Button onClick={goHomeHandler}>홈으로 가기</Button>
+      </ReviewLayoutFooter>
     </ReviewDetailLayoutContainer>
   );
 };
@@ -61,6 +72,12 @@ const ReviewLayoutHeader = styled.div`
 const ReviewLayoutBody = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
+`;
+const ReviewLayoutFooter = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
 `;
 export default ReviewDetailLayout;
