@@ -6,7 +6,7 @@ import { useAtom } from 'jotai';
 import Notice from '../components/common/Notice';
 import QuizLayout from '../components/quiz/QuizLayout';
 import { useRouter } from '../Routing';
-import { asyncGetQuizAtom } from '../store/quizDataAtom';
+import { quizDataAtom } from '../store/quizDataAtom';
 import {
   addEndDateAndQuizLogAtom,
   addQuizLogAtom,
@@ -26,7 +26,7 @@ const Quiz = () => {
 };
 
 const SuspenseQuiz = () => {
-  const [quiz] = useAtom(asyncGetQuizAtom);
+  const [quiz] = useAtom(quizDataAtom);
   const [{ quizLog }, setLog] = useAtom(addQuizLogAtom);
   const [, addEndDateAndQuiz] = useAtom(addEndDateAndQuizLogAtom);
   const { push } = useRouter();

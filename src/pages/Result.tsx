@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useAtom } from 'jotai';
 
@@ -22,6 +22,14 @@ const Result = () => {
     resetQuizLog();
     push('/review');
   };
+
+  const isNotEndQuiz = quizLog.quizLog.length < 10;
+
+  useEffect(() => {
+    if (isNotEndQuiz) {
+      push(`/quiz/${quizLog.quizLog.length}`);
+    }
+  }, []);
 
   return (
     <LayoutContainer>
