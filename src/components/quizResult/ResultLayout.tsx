@@ -3,7 +3,8 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import { QuizLogWithDate } from '../../types/quiz';
-import { timeTakenCalculator } from '../../utils/timeTakenCalculator';
+import { correctAnswerCounter } from '../../utils/correctAnswerCounter';
+import { timeDurationCalculator } from '../../utils/timeDurationCalculator';
 import Button from '../common/Button';
 import DoughnutChart from '../common/DoughnutChart';
 import { Paragraph, Title } from '../common/textStyle';
@@ -11,19 +12,19 @@ import { Paragraph, Title } from '../common/textStyle';
 type ResultLayoutProps = {
   quizLog: QuizLogWithDate;
   goHomeHandler: () => void;
+  goReviewHandler: () => void;
 };
-const ResultLayout = ({ quizLog, goHomeHandler }: ResultLayoutProps) => {
+const ResultLayout = ({
+  quizLog,
+  goHomeHandler,
+  goReviewHandler,
+}: ResultLayoutProps) => {
   const theme = useTheme();
-  const getCorrectAnswer = (quizLog: QuizLogWithDate) => {
-    const correctAnswer = quizLog.quizLog.filter(
-      (quiz) => quiz.correct_answer === quiz.selectedAnswer,
-    );
-    return correctAnswer.length;
-  };
-  const correctAnswerCount = getCorrectAnswer(quizLog);
+
+  const correctAnswerCount = correctAnswerCounter(quizLog);
   const incorrectAnswerCount = quizLog.quizLog.length - correctAnswerCount;
 
-  const { hours, minutes, seconds } = timeTakenCalculator(
+  const { hours, minutes, seconds } = timeDurationCalculator(
     quizLog.startDate!,
     quizLog.endDate!,
   );
@@ -54,7 +55,7 @@ const ResultLayout = ({ quizLog, goHomeHandler }: ResultLayoutProps) => {
           </HeaderWrapper>
           <DoughnutChart data={data} width={300} height={300} />
           <BottomWrapper>
-            <Button>오답노트 하기</Button>
+            <Button onClick={goReviewHandler}>오답노트 하기</Button>
             <Button onClick={goHomeHandler}>홈으로 가기</Button>
           </BottomWrapper>
         </ResultLayoutContainer>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useAtom } from 'jotai';
 
@@ -14,19 +14,32 @@ const Result = () => {
 
   const { push } = useRouter();
 
-  // const quizLogs = JSON.parse(localStorage.getItem('quizResultsLogAtom')!);
-  // const quizLog = quizLogs.pop();
-
   const goHomeHandler = () => {
     resetQuizLog();
     push('/');
   };
+  const goReviewHandler = () => {
+    resetQuizLog();
+    push('/review');
+  };
+
+  const isNotEndQuiz = quizLog.quizLog.length < 10;
+
+  useEffect(() => {
+    if (isNotEndQuiz) {
+      push(`/quiz/${quizLog.quizLog.length}`);
+    }
+  }, []);
 
   return (
     <LayoutContainer>
       <ContainerInner>
         {quizLog && (
-          <ResultLayout quizLog={quizLog} goHomeHandler={goHomeHandler} />
+          <ResultLayout
+            quizLog={quizLog}
+            goHomeHandler={goHomeHandler}
+            goReviewHandler={goReviewHandler}
+          />
         )}
       </ContainerInner>
     </LayoutContainer>

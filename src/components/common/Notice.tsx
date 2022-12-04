@@ -2,10 +2,14 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-const QuizLoading = () => {
+type NoticeProps = {
+  children: React.ReactNode;
+};
+
+const Notice = ({ children }: NoticeProps) => {
   return (
     <QuizLoadingContainer>
-      <Notice>퀴즈 불러오는 중...</Notice>
+      <StyledNotice>{children}</StyledNotice>
     </QuizLoadingContainer>
   );
 };
@@ -17,10 +21,10 @@ const QuizLoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Notice = styled.span`
+const StyledNotice = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.h5};
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.classting};
+  color: ${({ theme }) => theme.colors.classting700};
 `;
 
-export default QuizLoading;
+export default Notice;

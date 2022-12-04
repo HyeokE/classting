@@ -1,4 +1,4 @@
-export const timeTakenCalculator = (startDate: Date, endDate: Date) => {
+export const timeDurationCalculator = (startDate: string, endDate: string) => {
   const diff = new Date(endDate).getTime() - new Date(startDate).getTime();
   const hours = Math.floor(diff / (1000 * 60 * 60));
   const minutes = Math.floor(diff / 1000 / 60);
