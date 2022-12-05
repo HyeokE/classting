@@ -39,6 +39,7 @@ const ResultLayout = ({
       },
     ],
   };
+
   return (
     <>
       {quizLog.startDate && quizLog.endDate && (

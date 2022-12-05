@@ -1,7 +1,6 @@
-import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
+import React, { useEffect, useRef } from 'react';
 
-import { ArcElement, Chart, Legend, Tooltip } from 'chart.js';
+import { Chart } from 'chart.js';
 import type { ChartData } from 'chart.js';
 
 type DoughnutChartProps = {
@@ -10,17 +9,26 @@ type DoughnutChartProps = {
   height?: number;
 };
 const DoughnutChart = ({ ...rest }: DoughnutChartProps) => {
-  Chart.register(ArcElement, Tooltip, Legend);
+  const canvasDom = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    if (!canvasDom.current) {
+      return;
+    }
+    const ctx = canvasDom.current;
+
+    const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: rest.data,
+    });
+    return () => {
+      myChart.destroy();
+    };
+  }, []);
+
   return (
-    <Doughnut
-      {...rest}
-      style={{
-        paddingBottom: '10px',
-      }}
-      options={{
-        responsive: false,
-      }}
-    />
+    <div>
+      <canvas ref={canvasDom} id={'chart'}></canvas>
+    </div>
   );
 };
 

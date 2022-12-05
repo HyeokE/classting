@@ -66,7 +66,7 @@ const SuspenseQuiz = () => {
   }, [page, quizLog]);
 
   useEffect(() => {
-    if (Number(page) + 1 > quizLog.length) {
+    if (Number(page) > quizLog.length) {
       push(`/quiz/${quizLog.length}`);
     }
   }, []);

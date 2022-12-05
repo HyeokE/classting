@@ -12,7 +12,7 @@ import { ContainerInner, LayoutContainer } from '../styles/layouts';
 const Home = () => {
   return (
     <LayoutContainer>
-      <Suspense fallback={<Notice>문제 결과를 저장하는 중</Notice>}>
+      <Suspense fallback={<Notice>로딩 중</Notice>}>
         <ContainerInner>
           <SuspenseHome />
         </ContainerInner>
