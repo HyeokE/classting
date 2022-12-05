@@ -6,9 +6,7 @@ import userEvent from '@testing-library/user-event';
 
 import * as apis from '../apis/getQuizList';
 import App from '../App';
-jest.mock('chart.js', () => {
-  return {};
-});
+jest.mock('chart.js', () => 'Chart');
 describe('퀴즈 로직 테스트', () => {
   test('시작 - 퀴즈 - 결과', async () => {
     const spyGetQuizList = jest.spyOn(apis, 'getQuizList');
@@ -16,11 +14,11 @@ describe('퀴즈 로직 테스트', () => {
     renderWithRouter(<App />, { route: '/' });
 
     await screen.findByText(/클래스팅 프론트엔드 과제/);
-    await waitFor(() => screen.getByRole('button', { name: /퀴즈 풀기/ }), {
+    await userEvent.click(screen.getByRole('button', { name: /퀴즈 풀기/ }));
+    await screen.findByText(/퀴즈를 불러오는 중이에요/);
+    await waitFor(() => expect(spyGetQuizList).toHaveBeenCalled(), {
       timeout: 5000,
     });
-    await userEvent.click(screen.getByRole('button', { name: /퀴즈 풀기/ }));
-    await waitFor(() => expect(spyGetQuizList));
 
     const quizList = new Array(10);
 

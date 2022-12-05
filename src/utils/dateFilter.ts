@@ -14,13 +14,11 @@ export const dateFilter = (date: string, format: string) => {
   const minutes = dateObj.getMinutes();
   const seconds = dateObj.getSeconds();
 
-  const isZero = (num: number) => !(num === 0);
-
   return format
-    .replace('YYYY', isZero(year) ? year.toString() : '')
-    .replace('MM', isZero(month) ? month.toString() : '')
-    .replace('DD', isZero(day) ? day.toString() : '')
-    .replace('HH', isZero(hours) ? hours.toString() : '')
-    .replace('mm', isZero(minutes) ? minutes.toString() : '')
-    .replace('ss', isZero(seconds) ? seconds.toString() : '');
+    .replace('YYYY', year.toString())
+    .replace('MM', month.toString().padStart(2, '0'))
+    .replace('DD', day.toString().padStart(2, '0'))
+    .replace('HH', hours.toString().padStart(2, '0'))
+    .replace('mm', minutes.toString().padStart(2, '0'))
+    .replace('ss', seconds.toString().padStart(2, '0'));
 };
