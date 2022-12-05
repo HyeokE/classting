@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
-import { Chart } from 'chart.js';
 import type { ChartData } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 
 type DoughnutChartProps = {
   data: ChartData<'doughnut', number[], string>;
@@ -20,6 +20,7 @@ const DoughnutChart = ({ ...rest }: DoughnutChartProps) => {
       type: 'pie',
       data: rest.data,
     });
+
     return () => {
       myChart.destroy();
     };

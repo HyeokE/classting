@@ -3,7 +3,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 export type ChoisType = 'unselected' | 'correct' | 'incorrect' | 'disabled';
-interface QuizChoisProps extends React.HTMLAttributes<HTMLDivElement> {
+interface QuizChoisProps extends React.HTMLAttributes<HTMLLIElement> {
   children: React.ReactNode;
   type: ChoisType;
 }
@@ -22,7 +22,7 @@ const QuizChois = ({ children, type, onClick, ...rest }: QuizChoisProps) => {
   );
 };
 
-const StyledChoisWrapper = styled.div<{ type: ChoisType }>`
+const StyledChoisWrapper = styled.li<{ type: ChoisType }>`
   width: 100%;
   background-color: #fff;
   border-radius: 10px;

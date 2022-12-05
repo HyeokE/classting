@@ -6,7 +6,7 @@ import { useAtom } from 'jotai';
 import Notice from '../components/common/Notice';
 import QuizLayout from '../components/quiz/QuizLayout';
 import { useRouter } from '../Routing';
-import { quizDataAtom } from '../store/quizDataAtom';
+import { asyncQuizDataAtom, quizDataAtom } from '../store/quizDataAtom';
 import {
   addEndDateAndQuizLogAtom,
   addQuizLogAtom,
@@ -29,6 +29,8 @@ const SuspenseQuiz = () => {
   const [quiz] = useAtom(quizDataAtom);
   const [{ quizLog }, setLog] = useAtom(addQuizLogAtom);
   const [, addEndDateAndQuiz] = useAtom(addEndDateAndQuizLogAtom);
+  const [, asyncGetQuizDataAtom] = useAtom(asyncQuizDataAtom);
+
   const { push } = useRouter();
   const { id } = useParams<{ id: string }>();
 
@@ -70,6 +72,12 @@ const SuspenseQuiz = () => {
       push(`/quiz/${quizLog.length}`);
     }
   }, []);
+
+  useEffect(() => {
+    if (quiz.length === 0) {
+      asyncGetQuizDataAtom();
+    }
+  }, [page]);
 
   return (
     <>

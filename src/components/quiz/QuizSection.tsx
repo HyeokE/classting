@@ -58,7 +58,7 @@ const QuizSection = ({
   );
 };
 
-const StyledChoisWrapper = styled.section`
+const StyledChoisWrapper = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;

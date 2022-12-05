@@ -1,16 +1,45 @@
 import React, { ReactElement } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { render } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
+import * as apis from '../apis/getQuizList';
 import App from '../App';
-jest.mock('chart.js', () => 'Chart');
+jest.mock('chart.js', () => {
+  return {};
+});
 describe('퀴즈 로직 테스트', () => {
-  test('', async () => {
+  test('시작 - 퀴즈 - 결과', async () => {
+    const spyGetQuizList = jest.spyOn(apis, 'getQuizList');
+
     renderWithRouter(<App />, { route: '/' });
-    // await userEvent.click(screen.getByText('퀴즈 시작하기'));
+
+    await screen.findByText(/클래스팅 프론트엔드 과제/);
+    await waitFor(() => screen.getByRole('button', { name: /퀴즈 풀기/ }), {
+      timeout: 5000,
+    });
+    await userEvent.click(screen.getByRole('button', { name: /퀴즈 풀기/ }));
+    await waitFor(() => expect(spyGetQuizList));
+
+    const quizList = new Array(10);
+
+    for (let i = 0; i < quizList.length; i++) {
+      await answerQuiz();
+    }
+
+    await screen.findByText(/퀴즈 결과/);
   });
 });
+
+const answerQuiz = async () => {
+  await screen.findByText(/다음 문제/);
+  await delay(300);
+  await userEvent.click(screen.getAllByRole('listitem')[0]);
+  await userEvent.click(screen.getByRole('button', { name: /다음 문제/ }));
+};
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function renderWithRouter(Component: ReactElement, options: { route: string }) {
   return render(
