@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 import type { ChartData } from 'chart.js';
-import { Chart } from 'chart.js/auto';
+import Chart from 'chart.js/auto';
 
 type DoughnutChartProps = {
   data: ChartData<'doughnut', number[], string>;
