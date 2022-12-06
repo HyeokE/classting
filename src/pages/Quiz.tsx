@@ -71,13 +71,10 @@ const SuspenseQuiz = () => {
     if (Number(page) > quizLog.length) {
       push(`/quiz/${quizLog.length}`);
     }
-  }, []);
-
-  useEffect(() => {
     if (quiz.length === 0) {
       asyncGetQuizDataAtom();
     }
-  }, [page]);
+  }, []);
 
   return (
     <>
